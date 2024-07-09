@@ -1,8 +1,24 @@
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getCoffees } from "../services/api";
 
-const ListCoffees = ({ coffees }) => {
+const ListCoffee = () => {
+    const [coffees, setCoffees] = useState([]);
+
+    useEffect(() => {
+        async function fetchCoffees() {
+            try {
+                const data = await getCoffees();
+                setCoffees(data);
+            } catch (error) {
+                console.error("Error fetching coffees:", error);
+            }
+        }
+
+        fetchCoffees();
+    }, []);
+
     return (
         <>
             <h3 className="mb-3">Coffees</h3>
@@ -30,4 +46,4 @@ const ListCoffees = ({ coffees }) => {
     );
 }
 
-export default ListCoffees;
+export { ListCoffee }; // Exporta el componente ListCoffee

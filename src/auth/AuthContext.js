@@ -8,22 +8,22 @@ export function AuthProvider({ children }) {
     React.useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            setAuth({ token: token });
+            setAuth({ token }); // Simplificado: { token } es equivalente a { token: token }
         }
     }, []);
 
-    const setToken = async ({ token }) => { // Corregido: Se agregaron paréntesis alrededor de {token}
+    const setToken = async (token) => {
         localStorage.setItem("token", token);
-        setAuth({ token: token }); // Corregido: Se cambiaron {{token:token}} por {token: token}
+        setAuth({ token });
     };
 
     const logout = () => {
         localStorage.removeItem("token");
-        setAuth({ token: null }); // Corregido: Se cambiaron {token:null}) por {token: null}
+        setAuth({ token: null });
     };
 
     return (
-        <AuthContext.Provider value={{ auth, setToken, logout }}> {/* Corregido: Se agregaron paréntesis para envolver el value */}
+        <AuthContext.Provider value={{ auth, setToken, logout }}>
             {children}
         </AuthContext.Provider>
     );

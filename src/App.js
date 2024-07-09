@@ -1,43 +1,32 @@
-import logo from './logo.svg';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { Home } from './pages/Home';
+import { Page1 } from './pages/Page1';
+import { Page2 } from './pages/Page2';
+import { Menu } from './components/Menu';
+import { ListCoffee } from './pages/ListCoffee'; // Importa ListCoffee con llaves
 
-import { Col, Container, Row } from 'reactstrap';
-import ListCoffees from './components/ListCoffees';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import FormCoffee from './components/FormCoffee';
+import {AuthProvider}  from './auth/AuthContext';
+import {LoginPage} from './pages/LoginPage'; // Asegúrate de importar LoginPage correctamente
+import { CreateCoffeePage } from './pages/CreateCoffePage';
+import { PrivateRoute } from './auth/PrivateRoute';
 
 function App() {
-  const [coffees, setCoffees] = useState([]);
-
-  const cargarCoffees = () => {
-    axios.get('http://localhost:8080/api/coffee/listCoffeesWithTestimonials')
-      .then(response => setCoffees(response.data))
-      .catch(error => console.error('Error fetching coffees:', error));
-  }
-
-  useEffect(cargarCoffees, []);
-
-  const onSubmitForm = (data) => {
-    axios.post('http://localhost:8080/api/coffee/createCoffee', data)
-      .then(() => cargarCoffees())
-      .catch(error => console.error('Error creating coffee:', error));
-  };
-
-
   return (
-    <>
-      <Container>
-        <Row>
-          <Col md={6}>
-            <ListCoffees coffees={coffees} />
-          </Col>
-          <Col md={6}>
-            <FormCoffee onSubmit={onSubmitForm} />
-          </Col>
-        </Row>
-      </Container>
-    </>
+    <AuthProvider>
+      <HashRouter>
+        <Menu />
+        <Routes>
+          <Route path="/" element={<Home />}/> 
+          <Route path="/page1" element={<Page1 />}/> 
+          <Route path="/page2" element={<Page2 />}/> 
+          <Route path="/listCoffees" element={<ListCoffee />}/>  {/* Utiliza ListCoffee correctamente */}
+          <Route path="/login" element={<LoginPage />} /> {/* Ruta para LoginPage */}
+          <Route path="/create-coffee" element={<PrivateRoute><CreateCoffeePage /></PrivateRoute>} /> {/* Ruta para LoginPage */}
+          <Route path="*" element={<p>Ups, no existe la ruta</p>}/> 
+          </Routes>
+      </HashRouter>
+    </AuthProvider>
   );
 }
 

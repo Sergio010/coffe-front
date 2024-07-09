@@ -1,3 +1,22 @@
+
+import axios from "axios";
+
+
+export async function getUsers(){
+    const res = await fetch("https://randomuser.me/api/?results=10");
+    const data = await res.json();
+    return data;
+}
+
+
+export async function getCoffees() {
+    const res = await fetch("http://localhost:8080/api/coffee/listCoffeesWithTestimonials"); // Reemplaza con la URL de tu API de cafés
+    const data = await res.json();
+    return data;
+}
+
+
+
 export async function loginAccount(login) {
     try {
         const res = await fetch("http://localhost:8080/api/auth/login", {
@@ -20,3 +39,15 @@ export async function loginAccount(login) {
         return null;
     }
 }
+
+
+export async function createCoffee(coffeeData) {
+    try {
+        const res = await axios.post('http://localhost:8080/api/coffee/createCoffee', coffeeData);
+        return res.data; // Puedes devolver los datos si es necesario
+    } catch (error) {
+        console.error('Error creating coffee:', error);
+        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+    }
+}
+
