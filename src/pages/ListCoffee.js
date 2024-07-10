@@ -1,29 +1,47 @@
-import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import CoffeeSearch from "../components/CoffeSearch";
 import React, { useState, useEffect } from "react";
-import { getCoffees } from "../services/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { getCoffees, updateCoffee } from "../services/api";
 
 const ListCoffee = () => {
     const [coffees, setCoffees] = useState([]);
+    const [filteredCoffees, setFilteredCoffees] = useState([]);
 
     useEffect(() => {
-        async function fetchCoffees() {
-            try {
-                const data = await getCoffees();
-                setCoffees(data);
-            } catch (error) {
-                console.error("Error fetching coffees:", error);
-            }
-        }
-
         fetchCoffees();
     }, []);
+
+    const fetchCoffees = async () => {
+        try {
+            const data = await getCoffees();
+            setCoffees(data);
+            setFilteredCoffees(data); // Inicialmente, mostrar todos los cafés
+        } catch (error) {
+            console.error("Error fetching coffees:", error);
+        }
+    };
+
+    const handleUpdateCoffee = async (id, updatedCoffeeData) => {
+        try {
+            await updateCoffee(id, updatedCoffeeData);
+            fetchCoffees(); // Actualizar la lista de cafés después de la actualización
+        } catch (error) {
+            console.error(`Error updating coffee with ID ${id}:`, error);
+        }
+    };
+
+    const handleFilterCoffees = (filteredData) => {
+        setFilteredCoffees(filteredData);
+    };
 
     return (
         <>
             <h3 className="mb-3">Coffees</h3>
-            <input ></input>
-            {coffees.map(coffee => (
+            <CoffeeSearch setCoffees={handleFilterCoffees} />
+
+            {filteredCoffees.map(coffee => (
                 <div key={coffee.id} className="mb-3 border rounded p-3">
                     <div className="d-flex justify-content-between align-items-center mb-1">
                         <div>
@@ -37,8 +55,12 @@ const ListCoffee = () => {
                             <div>Descripción: {coffee.description}</div>
                         </div>
                         <div className="text-muted-small">
-                            <FontAwesomeIcon icon={faEdit} className="cursor-pointer"/>
-                            <FontAwesomeIcon icon={faTrash} className="cursor-pointer ms-2"/>
+                            <FontAwesomeIcon
+                                icon={faEdit}
+                                className="cursor-pointer"
+                                onClick={() => handleUpdateCoffee(coffee.id, { ...coffee, name: 'Nuevo Nombre' })}
+                            />
+                            <FontAwesomeIcon icon={faTrash} className="cursor-pointer ms-2" />
                         </div>
                     </div>
                 </div>
@@ -47,4 +69,4 @@ const ListCoffee = () => {
     );
 }
 
-export { ListCoffee }; // Exporta el componente ListCoffee
+export { ListCoffee };

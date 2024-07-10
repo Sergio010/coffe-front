@@ -76,3 +76,23 @@ export async function getUsers() {
         throw error;
     }
 }
+
+export async function updateCoffee(id, coffeeData) {
+    try {
+        const res = await axios.put(`http://localhost:8080/api/coffee/updateCoffee/${id}`, coffeeData);
+        return res.data; // Puedes devolver los datos si es necesario
+    } catch (error) {
+        console.error(`Error updating coffee with ID ${id}:`, error);
+        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+    }
+}
+
+export async function deleteCoffee(id, coffeeData) {
+    try {
+        const res = await axios.put(`http://localhost:8080/api/coffee/deleteCoffee${id}`, coffeeData);
+        return res.data; // Puedes devolver los datos si es necesario
+    } catch (error) {
+        console.error(`Error updating coffee with ID ${id}:`, error);
+        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+    }
+}
