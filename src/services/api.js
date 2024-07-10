@@ -18,8 +18,6 @@ export async function getCoffees() {
     return data;
 }
 
-
-
 export async function loginAccount(login) {
     try {
         const res = await fetch("http://localhost:8080/api/auth/login", {
@@ -89,10 +87,21 @@ export async function updateCoffee(id, coffeeData) {
 
 export async function deleteCoffee(id, coffeeData) {
     try {
-        const res = await axios.put(`http://localhost:8080/api/coffee/deleteCoffee${id}`, coffeeData);
+        const res = await axios.delete(`http://localhost:8080/api/coffee/deleteCoffee/${id}`, coffeeData);
         return res.data; // Puedes devolver los datos si es necesario
     } catch (error) {
         console.error(`Error updating coffee with ID ${id}:`, error);
         throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+    }
+}
+
+export async function createTestimonial(testimonialData) {
+    try {
+        const res = await axios.post('http://localhost:8080/api/testimonials/create', testimonialData, {
+        });
+        return res.data; // Devolver los datos del testimonio creado
+    } catch (error) {
+        console.error('Error creating testimonial:', error);
+        throw error;
     }
 }

@@ -7,9 +7,9 @@ function Menu() {
 
     routes.push({to:"/", text: "Home"});
     routes.push({to: "/page1", text: "Pagina 1"});
-    routes.push({to: "/page2", text: "Pagina 2"});
     routes.push({to: "/listCoffees", text: "Listado de cafes"});
     routes.push({to: "/login", text: "Iniciar Sesión"});
+    routes.push({to: "/list-testimonials", text: "Listado de Testimonios"});
 
     const { auth, logout } = React.useContext(AuthContext);
 
@@ -17,11 +17,11 @@ function Menu() {
         routes.splice(0,routes.length);
         routes.push({to:"/", text: "Home"});
         routes.push({to: "/page1", text: "Pagina 1"});
-        routes.push({to: "/page2", text: "Pagina 2"});
         routes.push({to: "/listCoffees", text: "Listado de cafes"});
         routes.push({to: "/create-coffee", text: "Nuevo café"});
         routes.push({to: "/create-user", text: "Crear usuario"});
         routes.push({to: "/list-users", text: "Listado de Usuarios"});
+        routes.push({to: "/list-testimonials", text: "Listado de Testimonios"});
 
 
     }
@@ -31,7 +31,6 @@ function Menu() {
         routes.splice(0,routes.length);
         routes.push({to:"/", text: "Home"});
         routes.push({to: "/page1", text: "Pagina 1"});
-        routes.push({to: "/page2", text: "Pagina 2"});
         routes.push({to: "/listCoffees", text: "Listado de cafes"});
         routes.push({to: "/login", text: "Iniciar Sesión"});
     }

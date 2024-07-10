@@ -2,7 +2,6 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Home } from './pages/Home';
 import { Page1 } from './pages/Page1';
-import { Page2 } from './pages/Page2';
 import { Menu } from './components/Menu';
 import { ListCoffee } from './pages/ListCoffee'; // Importa ListCoffee con llaves
 
@@ -12,6 +11,7 @@ import { CreateCoffeePage } from './pages/CreateCoffePage';
 import { PrivateRoute } from './auth/PrivateRoute';
 import { CreateUser } from './pages/CreateUser';
 import { ListUsers } from './pages/ListUser';
+import { ListTestimonials } from './pages/ListTestimonials';
 
 function App() {
   const handleSubmitCoffee = () => {
@@ -25,12 +25,13 @@ function App() {
               <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/page1" element={<Page1 />} />
-                  <Route path="/page2" element={<Page2 />} />
                   <Route path="/listCoffees" element={<ListCoffee />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/create-coffee" element={<PrivateRoute><CreateCoffeePage onSubmit={handleSubmitCoffee} /></PrivateRoute>} />
                   <Route path="/create-user" element={<PrivateRoute><CreateUser /></PrivateRoute>} />
                   <Route path="/list-users" element={<PrivateRoute><ListUsers /></PrivateRoute>} />
+                  <Route path="/list-testimonials" element={<ListTestimonials />} />
+
                   <Route path="*" element={<p>Ups, no existe la ruta</p>} />
               </Routes>
           </HashRouter>
