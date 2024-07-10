@@ -1,13 +1,16 @@
+import axios from 'axios';
+import { useContext } from 'react'; 
+import { AuthContext } from "../auth/AuthContext";
+import React, { useRef } from 'react';
 
-import axios from "axios";
-
-
+import { AuthProvider } from '../auth/AuthContext';
+/*
 export async function getUsers(){
     const res = await fetch("https://randomuser.me/api/?results=10");
     const data = await res.json();
     return data;
 }
-
+*/
 
 export async function getCoffees() {
     const res = await fetch("http://localhost:8080/api/coffee/listCoffeesWithTestimonials"); // Reemplaza con la URL de tu API de cafés
@@ -51,3 +54,25 @@ export async function createCoffee(coffeeData) {
     }
 }
 
+export async function createUser(userdata) {
+    try {
+        const res = await axios.post('http://localhost:8080/api/users/create', userdata);
+        return res.data; // Puedes devolver los datos si es necesario
+    } catch (error) {
+        console.error('Error creating coffee:', error);
+        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+    }
+}
+
+
+// Esta función getUsers debe ser parte de un componente funcional de React o un hook personalizado
+export async function getUsers() {
+    try {
+        const response = await axios.get('http://localhost:8080/api/users/getAllUsers', {
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
+    }
+}

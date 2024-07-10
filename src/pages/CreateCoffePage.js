@@ -1,44 +1,41 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { AuthContext } from "../auth/AuthContext";
+import axios from 'axios';
+
 
 const CreateCoffeePage = ({ onSubmit }) => {
     const formRef = useRef();
-    const { auth } = useContext(AuthContext); // Obtener auth del contexto
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [foto, setFoto] = useState(null);
+    const [error, setError] = useState(null);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = new FormData(formRef.current);
-        const coffeeData = {
-            name: formData.get('name'),
-            price: formData.get('price'),
-            description: formData.get('description'),
-            image64: formData.get('image64')
-        };
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('desc', description);
+        formData.append('foto', foto);
 
-        // Incluir el token en el header de la solicitud
-        const headers = {
-            Authorization: `Bearer ${auth.token}` // Agregar el token al header
-        };
+        try {
+            await axios.post('http://localhost:8080/api/coffee/createCoffee', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            onSubmit(); // Llamar a la función prop onSubmit después de la creación exitosa
+            formRef.current.reset(); // Reiniciar el formulario
+            setError(null); // Limpiar errores
+        } catch (error) {
+            setError('Error al crear el café: ' + error.message);
+        }
+    };
 
-        fetch('http://localhost:8080/api/coffee/createCoffee', {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(coffeeData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(() => {
-            onSubmit(); // Llamar a la función de éxito en el padre si es necesario
-            formRef.current.reset(); // Resetear el formulario después del envío
-        })
-        .catch(error => {
-            console.error('Error creating coffee:', error);
-        });
+    const handleFileChange = (event) => {
+        setFoto(event.target.files[0]);
     };
 
     return (
@@ -49,30 +46,39 @@ const CreateCoffeePage = ({ onSubmit }) => {
                 <form ref={formRef} onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Nombre</label>
-                        <input id="name" name="name" type="text" className="form-control" required />
+                        <input id="name" name="name" type="text" className="form-control" required
+                            value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="price" className="form-label">Precio</label>
-                        <input id="price" name="price" type="number" className="form-control" required />
+                        <input id="price" name="price" type="number" className="form-control" required
+                            value={price} onChange={(e) => setPrice(e.target.value)} />
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Descripción</label>
-                        <textarea id="description" name="description" className="form-control" required />
+                        <textarea id="description" name="description" className="form-control" required
+                            value={description} onChange={(e) => setDescription(e.target.value)} />
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="image64" className="form-label">Imagen</label>
-                        <input id="image64" name="image64" type="file" className="form-control" required />
+                        <label htmlFor="foto" className="form-label">Imagen</label>
+                        <input id="foto" name="foto" type="file" className="form-control" required
+                            onChange={handleFileChange} />
                     </div>
 
                     <div className="text-end mt-3">
                         <button type="submit" className="btn btn-primary">Crear</button>
                     </div>
                 </form>
+
+                {error && <div className="alert alert-danger mt-3">{error}</div>}
             </div>
         </div>
     );
-}
+};
+
+
+
 export { CreateCoffeePage };

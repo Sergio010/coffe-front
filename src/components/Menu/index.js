@@ -20,6 +20,10 @@ function Menu() {
         routes.push({to: "/page2", text: "Pagina 2"});
         routes.push({to: "/listCoffees", text: "Listado de cafes"});
         routes.push({to: "/create-coffee", text: "Nuevo café"});
+        routes.push({to: "/create-user", text: "Crear usuario"});
+        routes.push({to: "/list-users", text: "Listado de Usuarios"});
+
+
     }
 
     const cerrarSesion = () =>{

@@ -22,6 +22,7 @@ const ListCoffee = () => {
     return (
         <>
             <h3 className="mb-3">Coffees</h3>
+            <input ></input>
             {coffees.map(coffee => (
                 <div key={coffee.id} className="mb-3 border rounded p-3">
                     <div className="d-flex justify-content-between align-items-center mb-1">
