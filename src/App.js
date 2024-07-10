@@ -13,31 +13,42 @@ import { CreateUser } from './pages/CreateUser';
 import { ListUsers } from './pages/ListUser';
 import { ListTestimonials } from './pages/ListTestimonials';
 
+import Hero from './components/Hero/Hero';
+import Services from './components/General/Services/Services';
+import Bottom from './components/General/Bottom/Bottom';
+
+import  Footer from './components/Footer';
+
+import { AcercaDe } from './pages/AcercaDe';
+
 function App() {
-  const handleSubmitCoffee = () => {
+    const handleSubmitCoffee = () => {
       console.log('Café creado'); // Aquí puedes agregar la lógica de lo que quieres hacer cuando se envíe el café
-  };
-
-  return (
+    };
+  
+    return (
       <AuthProvider>
-          <HashRouter>
-              <Menu />
-              <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/page1" element={<Page1 />} />
-                  <Route path="/listCoffees" element={<ListCoffee />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/create-coffee" element={<PrivateRoute><CreateCoffeePage onSubmit={handleSubmitCoffee} /></PrivateRoute>} />
-                  <Route path="/create-user" element={<PrivateRoute><CreateUser /></PrivateRoute>} />
-                  <Route path="/list-users" element={<PrivateRoute><ListUsers /></PrivateRoute>} />
-                  <Route path="/list-testimonials" element={<ListTestimonials />} />
-
-                  <Route path="*" element={<p>Ups, no existe la ruta</p>} />
-              </Routes>
-          </HashRouter>
+        <HashRouter>
+          <Menu />
+          <Routes>
+            <Route path="/" element={<>
+              <Hero />
+              <Services />
+              <Home />
+              <Footer /> {/* Aquí integramos el componente Footer al final de la página */}
+            </>} />
+            <Route path="/listCoffees" element={<ListCoffee />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/create-coffee" element={<CreateCoffeePage onSubmit={handleSubmitCoffee} />} />
+            <Route path="/create-user" element={<CreateUser />} />
+            <Route path="/list-users" element={<ListUsers />} />
+            <Route path="/list-testimonials" element={<ListTestimonials />} />
+            <Route path="/acerca-de" element={<AcercaDe />} />
+            <Route path="*" element={<p>Ups, no existe la ruta</p>} />
+          </Routes>
+        </HashRouter>
       </AuthProvider>
-  );
-}
-
+    );
+  }
 
 export default App;

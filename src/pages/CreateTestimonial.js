@@ -48,13 +48,13 @@ const CreateTestimonial = ({ show, onHide, onSubmit, coffeeId }) => {
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Nuevo Testimonio</Modal.Title>
+                <Modal.Title>Agrega un comentario!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     {/* Campo de Testimonio (editable) */}
                     <Form.Group controlId="testimonial" className="mb-3">
-                        <Form.Label>Testimonio</Form.Label>
+                        <Form.Label>Cuentanos que te parecio este café</Form.Label>
                         <Form.Control
                             as="textarea"
                             rows={3}

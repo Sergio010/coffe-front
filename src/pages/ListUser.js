@@ -21,7 +21,7 @@ const ListUsers = () => {
 
     return (
         <>
-            <h3 className="mb-3">Usuarios</h3>
+            <h3 className="mb-3">Listado de Usuarios</h3>
             {users.map(user => (
                 <div key={user.id} className="mb-3 border rounded p-3">
                     <div className="d-flex justify-content-between align-items-center mb-1">

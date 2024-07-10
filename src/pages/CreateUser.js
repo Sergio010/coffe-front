@@ -6,7 +6,7 @@ const CreateUser = ({ onSubmit }) => {
     const formRef = useRef();
     const { auth } = useContext(AuthContext);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const formData = new FormData(formRef.current);
@@ -18,7 +18,7 @@ const CreateUser = ({ onSubmit }) => {
             password: formData.get('password')
         };
 
-        sendUserData(userData);
+        await sendUserData(userData);
     };
 
     const sendUserData = async (userData) => {
@@ -39,7 +39,7 @@ const CreateUser = ({ onSubmit }) => {
     return (
         <div className="card mt-4">
             <div className="card-body">
-                <h3 className="mb-3">Crear Usuario</h3>
+                <h3 className="mb-3">Crea tu cuenta</h3>
 
                 <form ref={formRef} onSubmit={handleSubmit}>
                     <div className="mb-3">
@@ -47,7 +47,8 @@ const CreateUser = ({ onSubmit }) => {
                         <input id="username" name="username" type="text" className="form-control" required />
                     </div>
 
-                    <div className="mb-3">
+                    {/* Ocultar visualmente los campos de checkbox si están deshabilitados */}
+                    <div className="mb-3 visually-hidden">
                         <label htmlFor="disabled" className="form-label">Deshabilitado</label>
                         <input id="disabled" name="disabled" type="checkbox" className="form-check-input" />
                     </div>
@@ -57,7 +58,8 @@ const CreateUser = ({ onSubmit }) => {
                         <input id="email" name="email" type="email" className="form-control" />
                     </div>
 
-                    <div className="mb-3">
+                    {/* Ocultar visualmente los campos de checkbox si están bloqueados */}
+                    <div className="mb-3 visually-hidden">
                         <label htmlFor="locked" className="form-label">Bloqueado</label>
                         <input id="locked" name="locked" type="checkbox" className="form-check-input" />
                     </div>
