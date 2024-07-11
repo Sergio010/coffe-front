@@ -47,7 +47,7 @@ const ServicesData = [
                   key={service.id}
                   data-aos="fade-up"
                   data-aos-delay={service.aosDelay}
-                  className="rounded-2xl bg-white hover:bg-primary hover:text-white relative shadow-xl duration-high group max-w-[300px]"
+                  className="rounded-2xl bg-white hover:bg-primary  relative shadow-xl duration-high group max-w-[300px]"
                   style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
                 >
                   <div className="h-[250px] relative">
@@ -60,7 +60,7 @@ const ServicesData = [
                   </div>
                   <div className="p-4 text-center">
                     <h1 className="text-xl font-bold mb-2">{service.name}</h1>
-                    <p className="text-gray-500 group-hover:text-white duration-high text-sm line-clamp-2">
+                    <p className="text-gray-500  duration-high text-sm line-clamp-2">
                       {service.description}
                     </p>
                   </div>

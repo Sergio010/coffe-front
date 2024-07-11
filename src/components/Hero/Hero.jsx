@@ -4,40 +4,47 @@ import HeroPng from "../../assets/assets/coffee2.png";
 
 const Hero = () => {
   return (
-    <div className="min-h-[550px] sm:min-h-[600px] bg-[#3d2517] flex justify-center items-center text-white">
-      <div className="container">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-14 md:gap-5 items-center">
-          {/* Image section */}
-          <div
-            data-aos="zoom-in"
-            data-aos-duration="300"
-            className="order-2 sm:order-1 flex justify-center sm:justify-end relative"
-          >
-            <img
-              data-aos-once="true"
-              src={HeroPng}
-              alt="Coffee image"
-              className="w-[300px] sm:w-[450px] sm:scale-125 mx-auto spin rounded-lg"
-              style={{ zIndex: 10 }} // Añadimos un zIndex para asegurarnos que la imagen esté delante del texto
-            />
-            {/* Text content */}
-            <div className="absolute top-0 left-[340px] bg-white bg-opacity-80 p-4 rounded-lg shadow-lg text-black">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-                CAFÉ COFFEE
+    <>
+      <div className="min-h-[550px] sm:min-h-[600px] bg-brandDark flex justify-center items-center text-white">
+        <div className="container pb-8 sm:pb-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            {/* text content section */}
+            <div className="flex flex-col justify-center gap-6 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1">
+              <h1
+                data-aos="fade-up"
+                data-aos-once="true"
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold"
+              >
+                Prueba el mejor{" "}
+                <span
+                  data-aos="zoom-out"
+                  data-aos-delay="300"
+                  class="bg-clip-text text-transparent bg-gradient-to-b from-primary to-primary/90 font-cursive"
+                >
+                  Café
+                </span>{" "}
+                de la UCM
               </h1>
-              <p className="text-lg">
-                En Coffee Cafe, nos dedicamos a ofrecerte no solo una taza de
-                café, sino una experiencia única. Nuestros granos de café
-                cuidadosamente seleccionados y nuestras máquinas de última
-                generación garantizan que cada visita sea un momento para
-                disfrutar y recordar.
-              </p>
+              <div data-aos="fade-up" data-aos-delay="400">
+              </div>
+            </div>
+            {/* Image section */}
+            <div
+              data-aos="zoom-in"
+              data-aos-duration="300"
+              className="min-h-[450px] flex justify-center items-center relative order-1 sm:order-2 "
+            >
+              <img
+                data-aos-once="true"
+                src={HeroPng}
+                alt="biryani img"
+                className="w-[300px] sm:w-[450px] sm:scale-125 mx-auto spin "
+              />
+              </div>
             </div>
           </div>
-          {/* End of Image section */}
         </div>
-      </div>
-    </div>
+    </>
   );
 };
 

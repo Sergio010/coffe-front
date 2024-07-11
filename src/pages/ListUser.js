@@ -21,6 +21,7 @@ const ListUsers = () => {
 
     return (
         <>
+            <br></br>
             <h3 className="mb-3">Listado de Usuarios</h3>
             {users.map(user => (
                 <div key={user.id} className="mb-3 border rounded p-3">

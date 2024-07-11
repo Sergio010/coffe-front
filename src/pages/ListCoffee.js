@@ -1,24 +1,27 @@
 
-import CoffeeSearch from "../components/CoffeSearch";
 import React, { useState, useEffect } from "react";
 import { getCoffees, updateCoffee, deleteCoffee } from "../services/api";
-import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form, Modal, Card, Accordion } from 'react-bootstrap';
 import { CreateTestimonial } from "./CreateTestimonial";
+import { faEdit, faTrash, faPlus, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 const ListCoffee = ({ username }) => {
     const [coffees, setCoffees] = useState([]);
+    const [filteredCoffees, setFilteredCoffees] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [coffeeEditando, setCoffeeEditando] = useState(null);
     const [editedName, setEditedName] = useState('');
     const [editedPrice, setEditedPrice] = useState('');
     const [editedDescription, setEditedDescription] = useState('');
     const [editedImage, setEditedImage] = useState('');
+
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [coffeeToDelete, setCoffeeToDelete] = useState(null);
     const [showTestimonialModal, setShowTestimonialModal] = useState(false);
     const [selectedCoffeeId, setSelectedCoffeeId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [activeKey, setActiveKey] = useState(null);
 
     useEffect(() => {
         fetchCoffees();
@@ -28,6 +31,7 @@ const ListCoffee = ({ username }) => {
         try {
             const data = await getCoffees();
             setCoffees(data);
+            setFilteredCoffees(data); // Inicializa los cafés filtrados con todos los cafés al inicio
         } catch (error) {
             console.error("Error fetching coffees:", error);
         }
@@ -48,29 +52,35 @@ const ListCoffee = ({ username }) => {
                 console.error("No coffee selected or coffee ID is undefined.");
                 return;
             }
-            await updateCoffee(coffeeEditando.idCoffee, {
+
+            const updatedCoffeeData = {
                 name: editedName,
                 price: editedPrice,
                 description: editedDescription,
                 image64: editedImage
-            });
+            };
+
+            await updateCoffee(coffeeEditando.idCoffee, updatedCoffeeData);
             fetchCoffees();
             setShowModal(false);
             setCoffeeEditando(null);
+            setEditedName('');
+            setEditedPrice('');
+            setEditedDescription('');
+            setEditedImage('');
+
         } catch (error) {
             console.error(`Error updating coffee with ID ${coffeeEditando.idCoffee}:`, error);
         }
     };
 
     const handleDeleteClick = (coffee) => {
-        console.log("Deleting coffee:", coffee);
         setCoffeeToDelete(coffee);
         setShowDeleteConfirmation(true);
     };
-    
+
     const handleDeleteConfirm = async () => {
         try {
-            console.log("Confirming deletion of coffee:", coffeeToDelete);
             if (!coffeeToDelete || !coffeeToDelete.idCoffee) {
                 console.error("No coffee selected or coffee ID is undefined.");
                 return;
@@ -83,10 +93,14 @@ const ListCoffee = ({ username }) => {
             console.error(`Error deleting coffee with ID ${coffeeToDelete.idCoffee}:`, error);
         }
     };
-    
+
     const handleCloseModal = () => {
         setShowModal(false);
         setCoffeeEditando(null);
+        setEditedName('');
+        setEditedPrice('');
+        setEditedDescription('');
+        setEditedImage('');
     };
 
     const handleCloseDeleteConfirmation = () => {
@@ -96,20 +110,67 @@ const ListCoffee = ({ username }) => {
 
     const handleAddTestimonialClick = (coffeeId) => {
         setSelectedCoffeeId(coffeeId);
+        setEditedName(''); // Limpiar el nombre al abrir el modal
+        setEditedPrice(''); // Limpiar el precio al abrir el modal
+        setEditedDescription(''); // Limpiar la descripción al abrir el modal
+        setEditedImage(''); // Limpiar la imagen al abrir el modal
         setShowTestimonialModal(true);
     };
 
-    const handleTestimonialSubmit = () => {
-        setShowTestimonialModal(false);
-        fetchCoffees(); // Puedes actualizar la lista de cafés o testimonios aquí si es necesario
+    const handleTestimonialSubmit = async () => {
+        try {
+            // Lógica para enviar el testimonio al servidor
+
+            // Después de enviar el testimonio, cerrar el modal y limpiar los campos
+            setShowTestimonialModal(false);
+            setEditedName(''); // Limpiar el nombre después de enviar el testimonio
+            setEditedPrice(''); // Limpiar el precio después de enviar el testimonio
+            setEditedDescription(''); // Limpiar la descripción después de enviar el testimonio
+            setEditedImage(''); // Limpiar la imagen después de enviar el testimonio
+
+            // Actualizar la lista de cafés o testimonios si es necesario
+            fetchCoffees();
+        } catch (error) {
+            console.error('Error submitting testimonial:', error);
+        }
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        handleSearchCoffees(e.target.value);
+    };
+
+    const handleSearchCoffees = async (value) => {
+        try {
+            const data = await getCoffees();
+            const filteredData = data.filter(coffee =>
+                coffee.name.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredCoffees(filteredData);
+        } catch (error) {
+            console.error("Error fetching coffees:", error);
+        }
+    };
+
+    const handleToggleAccordion = (coffeeId) => {
+        setActiveKey(activeKey === coffeeId ? null : coffeeId);
     };
 
     return (
         <>
-            <h3 className="mb-3">Coffees</h3>
-            {/* Componente para buscar o filtrar cafés, por ejemplo CoffeeSearch */}
+            <br />
+            <h3 className="mb-3">Listado de Cafés</h3>
 
-            {coffees.map((coffee) => (
+            <Form.Group controlId="formBasicSearch">
+                <Form.Control
+                    type="text"
+                    placeholder="Buscar café por nombre..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+            </Form.Group>
+
+            {filteredCoffees.map((coffee) => (
                 <div key={coffee.idCoffee} className="mb-3 border rounded p-3">
                     <div className="d-flex justify-content-between align-items-center mb-1">
                         <div>
@@ -127,31 +188,49 @@ const ListCoffee = ({ username }) => {
                             <div>Descripción: {coffee.description}</div>
                             
                             <div className="text-muted-small">
-                                {/* Botón para editar */}
                                 <FontAwesomeIcon
                                     icon={faEdit}
                                     className="cursor-pointer"
                                     onClick={() => handleEditClick(coffee)}
                                 />
-                                {/* Botón para eliminar */}
                                 <FontAwesomeIcon
                                     icon={faTrash}
                                     className="cursor-pointer ms-2"
                                     onClick={() => handleDeleteClick(coffee)}
                                 />
-                                {/* Botón para agregar testimonio */}
                                 <FontAwesomeIcon
-                                    icon={faPlus}
+                                    icon={activeKey === coffee.idCoffee ? faAngleUp : faAngleDown}
                                     className="cursor-pointer ms-2"
-                                    onClick={() => handleAddTestimonialClick(coffee.idCoffee)}
+                                    onClick={() => handleToggleAccordion(coffee.idCoffee)}
                                 />
                             </div>
                         </div>
                     </div>
+                    {activeKey === coffee.idCoffee && (
+                        <div className="mt-3">
+                            <br></br>
+                            <h4>Comentarios</h4>
+                            <Button
+                                variant="primary"
+                                className="mb-2"
+                                onClick={() => handleAddTestimonialClick(coffee.idCoffee)}
+                            >
+                                Comentar
+                            </Button>
+                            {coffee.testimonials && coffee.testimonials.map((testimonial, index) => (
+                                <div key={index} className="border rounded p-2 mb-2">
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div className="fw-bold">{testimonial.username}</div>
+                                        <div>{testimonial.testimonial}</div>
+                                    </div>
+                                </div>
+                            ))}
+                            
+                        </div>
+                    )}
                 </div>
             ))}
 
-            {/* Modal de Edición */}
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Editar Café</Modal.Title>
@@ -207,7 +286,6 @@ const ListCoffee = ({ username }) => {
                 </Modal.Footer>
             </Modal>
 
-            {/* Modal de Confirmación de Eliminación */}
             <Modal show={showDeleteConfirmation} onHide={handleCloseDeleteConfirmation}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmar Eliminación</Modal.Title>
@@ -225,7 +303,6 @@ const ListCoffee = ({ username }) => {
                 </Modal.Footer>
             </Modal>
 
-            {/* Modal para Crear Testimonio */}
             <CreateTestimonial
                 show={showTestimonialModal}
                 onHide={() => setShowTestimonialModal(false)}
@@ -236,5 +313,4 @@ const ListCoffee = ({ username }) => {
         </>
     );
 };
-
 export { ListCoffee };

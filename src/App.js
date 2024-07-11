@@ -1,7 +1,6 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Home } from './pages/Home';
-import { Page1 } from './pages/Page1';
 import { Menu } from './components/Menu';
 import { ListCoffee } from './pages/ListCoffee'; // Importa ListCoffee con llaves
 
@@ -11,7 +10,7 @@ import { CreateCoffeePage } from './pages/CreateCoffePage';
 import { PrivateRoute } from './auth/PrivateRoute';
 import { CreateUser } from './pages/CreateUser';
 import { ListUsers } from './pages/ListUser';
-import { ListTestimonials } from './pages/ListTestimonials';
+
 
 import Hero from './components/Hero/Hero';
 import Services from './components/General/Services/Services';
@@ -42,7 +41,7 @@ function App() {
             <Route path="/create-coffee" element={<CreateCoffeePage onSubmit={handleSubmitCoffee} />} />
             <Route path="/create-user" element={<CreateUser />} />
             <Route path="/list-users" element={<ListUsers />} />
-            <Route path="/list-testimonials" element={<ListTestimonials />} />
+
             <Route path="/acerca-de" element={<AcercaDe />} />
             <Route path="*" element={<p>Ups, no existe la ruta</p>} />
           </Routes>
