@@ -14,7 +14,7 @@ function AcercaDe() {
               <div className="flex items-center">
                 <span className="text-lg font-semibold mr-2">Benjamin Retamal Jara:</span>
                 <a
-                  href="https://github.com/bnjretamal"
+                  href=""
                   className="text-lg hover:text-primary duration-300"
                   target="_blank"
                   rel="noopener noreferrer"
