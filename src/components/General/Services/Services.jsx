@@ -1,14 +1,17 @@
 import React from "react";
 import Img2 from "../../../assets/assets/coffee2.png";
-import Img3 from "../../../assets/assets/coffee-white.png";
+import Img3 from "../../../assets/assets/granos.png";
+
+import Img4 from "../../../assets/assets/cafetera.png";
+import Img5 from "../../../assets/assets/sucursal.png";
 
 const ServicesData = [
     {
       id: 1,
-      img: Img2,
+      img: Img4,
       name: "Maquinas",
       description:
-        "Ofrecemos una variedad de máquinas de café de última generación, diseñadas para satisfacer las necesidades más exigentes de nuestros clientes. Desde máquinas automáticas hasta modelos personalizables, garantizamos calidad y eficiencia en cada taza.",
+        "Ofrecemos una variedad de máquinas de café de última generación.",
       aosDelay: "100",
     },
     {
@@ -16,15 +19,15 @@ const ServicesData = [
       img: Img3,
       name: "Granos",
       description:
-        "Nuestros granos de café son seleccionados cuidadosamente de las mejores regiones cafetaleras del mundo. Con métodos de cultivo sostenibles y un proceso de tostado artesanal, ofrecemos un café con sabor único y aroma irresistible.",
+        "Nuestros granos de café son seleccionados cuidadosamente.",
       aosDelay: "300",
     },
     {
       id: 3,
-      img: Img2,
+      img: Img5,
       name: "Sucursales",
       description:
-        "Estamos presentes en múltiples ubicaciones estratégicas, ofreciendo la experiencia única de Coffee Cafe en diferentes ciudades. Cada sucursal está diseñada para brindar un ambiente acogedor y un servicio excepcional, haciendo que cada visita sea memorable.",
+        "Estamos presentes multiples ciudades ofreciendo una experiencia única.",
       aosDelay: "500",
     },
   ];

@@ -4,16 +4,10 @@ import { AuthContext } from "../auth/AuthContext";
 import React, { useRef } from 'react';
 
 import { AuthProvider } from '../auth/AuthContext';
-/*
-export async function getUsers(){
-    const res = await fetch("https://randomuser.me/api/?results=10");
-    const data = await res.json();
-    return data;
-}
-*/
+
 
 export async function getCoffees() {
-    const res = await fetch("http://localhost:8080/api/coffee/listCoffeesWithTestimonials"); // Reemplaza con la URL de tu API de cafés
+    const res = await fetch("http://localhost:8080/api/coffee/listCoffeesWithTestimonials"); 
     const data = await res.json();
     return data;
 }
@@ -22,9 +16,9 @@ export async function loginAccount(login) {
     try {
         const res = await fetch("http://localhost:8080/api/auth/login", {
             method: "POST",
-            body: JSON.stringify(login), // Corregido: No es JSON.stringify{login}, sino JSON.stringify(login)
+            body: JSON.stringify(login), 
             headers: {
-                "Content-Type": "application/json" // Corregido: "aplicaction/json" debe ser "application/json"
+                "Content-Type": "application/json" // "application/json"
             }
         });
 
@@ -32,11 +26,11 @@ export async function loginAccount(login) {
             throw new Error(`HTTP error! Status: ${res.status}`);
         }
 
-        const data = await res.json(); // Corregido: Debe ser res.json(), no res.JSON()
+        const data = await res.json(); 
         console.log(data);
         return data;
     } catch (error) {
-        console.error("Error fetching data:", error); // Corregido: console.log(error) -> console.error(error)
+        console.error("Error fetching data:", error); 
         return null;
     }
 }
@@ -45,25 +39,25 @@ export async function loginAccount(login) {
 export async function createCoffee(coffeeData) {
     try {
         const res = await axios.post('http://localhost:8080/api/coffee/createCoffee', coffeeData);
-        return res.data; // Puedes devolver los datos si es necesario
+        return res.data; 
     } catch (error) {
         console.error('Error creating coffee:', error);
-        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+        throw error; 
     }
 }
 
 export async function createUser(userdata) {
     try {
         const res = await axios.post('http://localhost:8080/api/users/create', userdata);
-        return res.data; // Puedes devolver los datos si es necesario
+        return res.data; 
     } catch (error) {
         console.error('Error creating coffee:', error);
-        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+        throw error; 
     }
 }
 
 
-// Esta función getUsers debe ser parte de un componente funcional de React o un hook personalizado
+
 export async function getUsers() {
     try {
         const response = await axios.get('http://localhost:8080/api/users/getAllUsers', {
@@ -83,10 +77,10 @@ export async function updateCoffee(id, coffeeData) {
         const res = await axios.put(`http://localhost:8080/api/coffee/updateCoffee/${id}`, coffeeData);
         console.log("Update response:", res.data);
 
-        return res.data; // Puedes devolver los datos si es necesario
+        return res.data; 
     } catch (error) {
         console.error(`Error updating coffee with ID ${id}:`, error);
-        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+        throw error; 
     }
 }
 
@@ -94,10 +88,10 @@ export async function updateCoffee(id, coffeeData) {
 export async function deleteCoffee(id, coffeeData) {
     try {
         const res = await axios.delete(`http://localhost:8080/api/coffee/deleteCoffee/${id}`, coffeeData);
-        return res.data; // Puedes devolver los datos si es necesario
+        return res.data; 
     } catch (error) {
         console.error(`Error updating coffee with ID ${id}:`, error);
-        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+        throw error; 
     }
 }
 
@@ -105,7 +99,7 @@ export async function createTestimonial(testimonialData) {
     try {
         const res = await axios.post('http://localhost:8080/api/testimonials/create', testimonialData, {
         });
-        return res.data; // Devolver los datos del testimonio creado
+        return res.data; 
     } catch (error) {
         console.error('Error creating testimonial:', error);
         throw error;
@@ -115,8 +109,8 @@ export async function createTestimonial(testimonialData) {
 export async function getCoffeByName(name,coffeeData) {
     try {
         const res = await axios.delete(`http://localhost:8080/api/coffee/getCoffeeByName/${name}`, coffeeData);
-        return res.data; // Puedes devolver los datos si es necesario
+        return res.data; 
     } catch (error) {
-        throw error; // Puedes manejar el error aquí o propagarlo según sea necesario
+        throw error; 
     }
 }

@@ -15,7 +15,7 @@ function LoginPage() {
             if (resp && resp.token) {
                 await setToken(resp.token);
             } else {
-                console.log("Login failed:", resp); // Log if login was unsuccessful
+                console.log("Login failed:", resp); 
             }
         } catch (error) {
             console.error("Error during login:", error); // Log any errors during login

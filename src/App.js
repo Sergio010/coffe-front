@@ -2,10 +2,10 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Home } from './pages/Home';
 import { Menu } from './components/Menu';
-import { ListCoffee } from './pages/ListCoffee'; // Importa ListCoffee con llaves
+import { ListCoffee } from './pages/ListCoffee'; 
 
 import {AuthProvider}  from './auth/AuthContext';
-import {LoginPage} from './pages/LoginPage'; // Asegúrate de importar LoginPage correctamente
+import {LoginPage} from './pages/LoginPage'; 
 import { CreateCoffeePage } from './pages/CreateCoffePage';
 import { PrivateRoute } from './auth/PrivateRoute';
 import { CreateUser } from './pages/CreateUser';
@@ -22,7 +22,7 @@ import { AcercaDe } from './pages/AcercaDe';
 
 function App() {
     const handleSubmitCoffee = () => {
-      console.log('Café creado'); // Aquí puedes agregar la lógica de lo que quieres hacer cuando se envíe el café
+      console.log('Café creado'); 
     };
   
     return (
@@ -34,7 +34,7 @@ function App() {
               <Hero />
               <Services />
               <Home />
-              <Footer /> {/* Aquí integramos el componente Footer al final de la página */}
+              <Footer /> {}
             </>} />
             <Route path="/listCoffees" element={<ListCoffee />} />
             <Route path="/login" element={<LoginPage />} />

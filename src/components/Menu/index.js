@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import { Navbar } from "../General/Navbar/Navbar";
-import Hero from "../Hero/Hero"; // Importa el componente Hero correctamente
-import Services from "../General/Services/Services"; // Importa el componente Services correctamente
+import Hero from "../Hero/Hero"; 
+import Services from "../General/Services/Services"; 
 import Bottom from "../General/Bottom/Bottom";
 import Logo from "../../assets/assets/website/coffee_logo.png";
 

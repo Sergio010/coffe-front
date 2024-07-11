@@ -6,10 +6,10 @@ function PrivateRoute({children}){
     const location = useLocation();
 
     return auth.token ? (
-        // Si el usuario está autenticado, renderiza los hijos
+        // Si el usuario está autenticado
         children
     ) : (
-        // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+        // Si el usuario no está autenticado
         <Navigate to="/login" replace state={{ path: location.pathname }} />
     );
 }

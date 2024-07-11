@@ -17,8 +17,8 @@ const FormCoffee = ({ onSubmit }) => {
 
         axios.post('http://localhost:8080/api/coffee/createCoffee', coffeeData)
             .then(() => {
-                onSubmit(); // Llamar a la función de éxito en el padre si es necesario
-                formRef.current.reset(); // Resetear el formulario después del envío
+                onSubmit(); 
+                formRef.current.reset(); 
             })
             .catch(error => {
                 console.error('Error creating coffee:', error);

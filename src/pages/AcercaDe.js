@@ -6,15 +6,15 @@ function AcercaDe() {
       <div className="container mx-auto py-10">
         <h1 className="text-3xl font-bold text-center mb-5">Sobre Nosotros</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Sección de Desarrolladores y Repositorios */}
+          {/* Desarrolladores y Repositorios */}
           <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-bold mb-3">Equipo de Desarrollo</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Desarrollador 1 */}
+              {}
               <div className="flex items-center">
-                <span className="text-lg font-semibold mr-2">Benjamin R:</span>
+                <span className="text-lg font-semibold mr-2">Benjamin Retamal Jara:</span>
                 <a
-                  href=""
+                  href="https://github.com/bnjretamal"
                   className="text-lg hover:text-primary duration-300"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -22,7 +22,7 @@ function AcercaDe() {
 GitHub                </a>
               </div>
   
-              {/* Desarrollador 2 */}
+              {}
               <div className="flex items-center">
                 <span className="text-lg font-semibold mr-2">Sergio Retamal Vergara:</span>
                 <a
@@ -34,11 +34,11 @@ GitHub                </a>
 GitHub                </a>
               </div>
   
-              {/* Agrega más desarrolladores y repositorios según sea necesario */}
+              {}
             </div>
           </div>
   
-          {/* Sección de Misión y Visión */}
+          {}
           <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-bold mb-3">Misión y Visión</h2>
             <p className="text-lg">
@@ -54,7 +54,7 @@ GitHub                </a>
             </p>
           </div>
           
-           {/* Sección de Propósito */}
+           {}
             <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-bold mb-3">¿Por qué Creamos Esta Página de Cafés?</h2>
             <p className="text-lg">

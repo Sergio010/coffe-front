@@ -26,7 +26,7 @@ const CreateCoffeePage = ({ onSubmit }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            onSubmit(); // Llamar a la función prop onSubmit después de la creación exitosa
+            onSubmit(); 
             formRef.current.reset(); // Reiniciar el formulario
             setError(null); // Limpiar errores
         } catch (error) {

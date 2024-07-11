@@ -37,11 +37,11 @@ const CreateTestimonial = ({ show, onHide, onSubmit, coffeeId }) => {
             });
 
             onSubmit(); // Ejecutar función onSubmit después de crear el testimonio
-            formRef.current.reset(); // Limpiar el formulario
-            setError(null); // Limpiar errores
-            onHide(); // Ocultar modal después de operación exitosa
+            formRef.current.reset(); 
+            setError(null); 
+            onHide(); 
         } catch (error) {
-            setError('Error al crear el testimonio: ' + error.message); // Manejo de errores
+            setError('Error al crear el testimonio: ' + error.message); 
         }
     };
 
